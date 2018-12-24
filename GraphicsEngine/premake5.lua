@@ -1,9 +1,3 @@
--- For documentation on all premake functions please see the wiki:
---   https://github.com/premake/premake-core/wiki
-
--- Thanks to Johannes Peters for providing the template of this file.
-
-
 -- Helper function
 function RemoveDirs(pattern)
   local matches = os.matchdirs(pattern)
@@ -60,6 +54,7 @@ project "GraphicsEngine!"
    targetname "GraphicsEngine"                     -- the name of the executable saved to 'targetdir'
 
    local SourceDir = "./src/";
+   local ShaderDir = "./src/shaders/";
    local IncludeDirs = "./inc/";
    files 
    {
@@ -80,6 +75,14 @@ project "GraphicsEngine!"
       IncludeDirs
    }
 
+   files
+   {
+      ShaderDir .. "**.hlsl"
+   }
+   filter { "files:**.hlsl" }
+   flags {"ExcludeFromBuild"}
+   filter {} -- clear filter!
+   
    -- Exclude template files from project (so they don't accidentally get compiled)
     filter { "files:**.tpp" }
       flags {"ExcludeFromBuild"}

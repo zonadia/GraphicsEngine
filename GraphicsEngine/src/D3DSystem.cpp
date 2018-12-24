@@ -1,8 +1,9 @@
 #include "D3DSystem.h"
 #include "GraphicsWindow.h"
+#include "Shader.h"
 #include <iostream>
 
-namespace D3D
+namespace D3DEngine
 {
     //D3D Variables
     ID3D11Texture2D *backBuffer;
@@ -222,58 +223,6 @@ namespace D3D
 
         //loadShaders();
     }
-    /*
-    void DEBUGrenderTriangle()
-    {
-        //Set shaders as active
-        DXcontext->VSSetShader(mainShaderProgram.vertexShader.Get(), 0, 0);
-        DXcontext->PSSetShader(mainShaderProgram.pixelShader.Get(), 0, 0);
-
-
-
-        //Set up vertex buffers
-
-        DefaultVertex TriVertices[] = { {-0.50f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f, 0.0f},
-                                       { 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f },
-                                       { 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f } };
-
-        //Put buffer into mesh later
-        //Create buffer
-        ID3D11Buffer *vertBuffer;
-        D3D11_BUFFER_DESC bd;
-        ZeroMemory(&bd, sizeof(bd));
-        bd.Usage = D3D11_USAGE_DYNAMIC;
-        bd.ByteWidth = sizeof(DefaultVertex) * 3;
-        bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-        bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-        HRESULT hr = DXData::DXdevice->CreateBuffer(&bd, NULL, &vertBuffer);
-        if (FAILED(hr)) {
-            std::cout << GetLastError() << std::endl;
-            return;
-        }
-        //Fill the buffer
-        D3D11_MAPPED_SUBRESOURCE ms;
-        DXData::DXcontext->Map(vertBuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &ms);
-        memcpy(ms.pData, TriVertices, sizeof(TriVertices));
-        DXData::DXcontext->Unmap(vertBuffer, NULL);
-
-
-
-        //Do the actual rendering
-        //Set up active things the GPU needs to know
-        UINT stride = sizeof(DefaultVertex);
-        UINT offset = 0;
-        DXData::DXcontext->IASetVertexBuffers(0, 1, &vertBuffer, &stride, &offset);
-        //Also set the input layout
-        DXData::DXcontext->IASetInputLayout(DXData::mainShaderProgram.vsLayout);
-
-        DXData::DXcontext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-        DXData::DXcontext->Draw(3, 0);
-
-        vertBuffer->Release();
-    }*/
 
 }
 

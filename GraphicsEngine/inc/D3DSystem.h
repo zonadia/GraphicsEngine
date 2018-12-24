@@ -5,7 +5,7 @@
 
 class GraphicsWindow;
 
-namespace D3D
+namespace D3DEngine
 {
     void initDirectX(GraphicsWindow *window);
     void cleanupDirectX();
