@@ -3,10 +3,10 @@
 #include "D3DSystem.h"
 
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int)
 {
     mainWindowsWindow = new GraphicsWindow(800, 600, hInstance);
-    D3D::initDirectX();
+    D3D::initDirectX(mainWindowsWindow);
 
     while(true);
 

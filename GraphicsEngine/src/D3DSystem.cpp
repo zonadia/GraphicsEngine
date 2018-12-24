@@ -2,21 +2,56 @@
 #include "GraphicsWindow.h"
 #include <iostream>
 
-//Forward declarations
-void D3D::createRasterizerState();
-void D3D::createDepthStencilState();
-void D3D::initDirectX(HWND windowHandle);
-void D3D::DEBUGrenderTriangle();
-
 namespace D3D
 {
+    //D3D Variables
+    ID3D11Texture2D *backBuffer;
+    ID3D11Texture2D *depthStencil;
+    D3D11_TEXTURE2D_DESC bbDesc;
+
+    ID3D11Device *DXdevice;
+    ID3D11DeviceContext *DXcontext;
+    IDXGIDevice3 *dxgiDevice;
+
+    //Used for swap chain creation
+    IDXGIAdapter *adapter;
+    IDXGIFactory *factory;
+
+    IDXGISwapChain *swapChain;
+
+    ID3D11RenderTargetView *renderTargetView;
+    ID3D11DepthStencilView *depthStencilView;
+    ID3D11DepthStencilState *depthStencilState;
+    ID3D11RasterizerState *rasterizerState;
+
+    D3D11_VIEWPORT viewport;
+
+    //Forward declarations
+    void createRasterizerState();
+    void createDepthStencilState();
+    void initD3D(HWND windowHandle);
+    //void D3D::DEBUGrenderTriangle();
+
+
     void initDirectX(GraphicsWindow *window)
     {
-
+        initD3D(window->windowHandle);
     }
     void cleanupDirectX()
     {
-
+        //Release shaders
+        
+        //Relase other stuff
+        DXdevice->Release();
+        DXcontext->Release();
+        dxgiDevice->Release();
+        adapter->Release();
+        factory->Release();
+        swapChain->Release();
+        renderTargetView->Release();
+        depthStencilView->Release();
+        depthStencilState->Release();
+        rasterizerState->Release();
     }
 
 
@@ -77,7 +112,7 @@ namespace D3D
         DXcontext->OMSetDepthStencilState(depthStencilState, 1);
     }
 
-    void initDirectX(HWND windowHandle)
+    void initD3D(HWND windowHandle)
     {
         D3D_FEATURE_LEVEL levels[] = {
             D3D_FEATURE_LEVEL_11_0,
@@ -185,9 +220,9 @@ namespace D3D
 
         DXcontext->RSSetViewports(1, &viewport);
 
-        loadShaders();
+        //loadShaders();
     }
-
+    /*
     void DEBUGrenderTriangle()
     {
         //Set shaders as active
@@ -197,9 +232,6 @@ namespace D3D
 
 
         //Set up vertex buffers
-        /*DefaultVertex TriVertices[] = {{0.0f, 0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, 0.0f},
-                                       { -0.45f, 0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f },
-                                       { -0.45f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f, 1.0f }};*/
 
         DefaultVertex TriVertices[] = { {-0.50f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f, 0.0f},
                                        { 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f },
@@ -241,8 +273,7 @@ namespace D3D
         DXData::DXcontext->Draw(3, 0);
 
         vertBuffer->Release();
-    }
-
+    }*/
 
 }
 
